@@ -97,6 +97,10 @@ export async function upsertPayment(input: UpsertPaymentInput): Promise<void> {
 export function summarizePayments(payments: Payment[]) {
   return payments.reduce(
     (acc, p) => {
+      // A waived payment isn't owed by anyone — excluding it keeps "pending"
+      // meaning "money still to collect", not inflated by people the
+      // commissioner already excused.
+      if (p.status === 'waived') return acc
       acc.expected += p.expectedAmount
       acc.paid += p.paidAmount
       acc.pending += Math.max(p.expectedAmount - p.paidAmount, 0)
