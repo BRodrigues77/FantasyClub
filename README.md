@@ -18,6 +18,7 @@ o início da temporada de 2026.
 - Supabase (Postgres + Auth + Row Level Security)
 - TanStack Query para cache/estado assíncrono
 - React Router v7
+- Vitest para lógica pura sensível a bugs (mapeamento Sleeper, cálculo financeiro)
 
 ## Rodando localmente
 
@@ -37,6 +38,7 @@ Outros comandos:
 ```bash
 npm run build   # typecheck + build de produção
 npm run lint    # oxlint
+npm run test    # vitest — mapeamento do Sleeper e cálculo financeiro
 npm run preview # serve o build de produção
 ```
 
