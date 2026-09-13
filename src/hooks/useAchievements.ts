@@ -41,20 +41,23 @@ export function useAwardAchievement() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (input: AwardAchievementInput) => awardAchievement(input),
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['achievements', 'user', variables.userId] })
-      queryClient.invalidateQueries({ queryKey: ['passport', variables.userId] })
+    onSuccess: () => {
+      // Awarding shows up in three places at once (the member's own
+      // passport, the league ranking feed, and this admin list) — broad
+      // invalidation is simpler and safer than tracking each key.
+      queryClient.invalidateQueries({ queryKey: ['achievements'] })
+      queryClient.invalidateQueries({ queryKey: ['passport'] })
     },
   })
 }
 
-export function useRevokeAchievement(userId: string) {
+export function useRevokeAchievement() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (userAchievementId: string) => revokeAchievement(userAchievementId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['achievements', 'user', userId] })
-      queryClient.invalidateQueries({ queryKey: ['passport', userId] })
+      queryClient.invalidateQueries({ queryKey: ['achievements'] })
+      queryClient.invalidateQueries({ queryKey: ['passport'] })
     },
   })
 }

@@ -70,12 +70,7 @@ export interface LeagueAchievementEntry extends UserAchievement {
 }
 
 export async function listLeagueAchievements(leagueId: string): Promise<LeagueAchievementEntry[]> {
-  if (!isSupabaseConfigured) {
-    const achievements = await mockApi.listUserAchievements(mockApi.currentUserId)
-    return achievements
-      .filter((a) => a.leagueId === leagueId)
-      .map((a) => ({ ...a, userDisplayName: 'Beto Rodrigues' }))
-  }
+  if (!isSupabaseConfigured) return mockApi.listLeagueAchievements(leagueId)
 
   const { data, error } = await supabase
     .from('user_achievements')

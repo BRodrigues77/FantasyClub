@@ -4,6 +4,7 @@ import { useLeagueMemberships } from '@/hooks/useLeagues'
 import { useLeaguePayments, usePrizeStructure } from '@/hooks/usePayments'
 import { summarizePayments } from '@/services/payments/api'
 import type { League } from '@/types/domain'
+import { EditLeagueDialog } from './EditLeagueDialog'
 
 export function OverviewTab({ league }: { league: League }) {
   const { data: memberships, isLoading } = useLeagueMemberships(league.id)
@@ -16,7 +17,12 @@ export function OverviewTab({ league }: { league: League }) {
   const associated = (memberships ?? []).filter((m) => m.userId).length
 
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-end">
+        <EditLeagueDialog league={league} />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
       <Card>
         <CardContent className="pt-4">
           <p className="text-xs text-muted-foreground">Participantes</p>
@@ -51,14 +57,15 @@ export function OverviewTab({ league }: { league: League }) {
         </CardContent>
       </Card>
 
-      {league.description && (
-        <Card className="lg:col-span-3">
-          <CardContent className="pt-4">
-            <p className="text-xs text-muted-foreground">Descrição</p>
-            <p className="mt-1 text-sm text-foreground">{league.description}</p>
-          </CardContent>
-        </Card>
-      )}
+        {league.description && (
+          <Card className="lg:col-span-3">
+            <CardContent className="pt-4">
+              <p className="text-xs text-muted-foreground">Descrição</p>
+              <p className="mt-1 text-sm text-foreground">{league.description}</p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   )
 }

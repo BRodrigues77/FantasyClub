@@ -130,6 +130,16 @@ export const mockApi = {
     return state.userAchievements.filter((a) => a.userId === userId)
   },
 
+  async listLeagueAchievements(leagueId: string) {
+    await delay()
+    return state.userAchievements
+      .filter((a) => a.leagueId === leagueId)
+      .map((a) => ({
+        ...a,
+        userDisplayName: state.profiles.find((p) => p.id === a.userId)?.displayName ?? 'Jogador',
+      }))
+  },
+
   async awardAchievement(input: AwardAchievementInput): Promise<void> {
     await delay()
     const achievement = mockAchievementCatalog.find((a) => a.id === input.achievementId)

@@ -1,4 +1,5 @@
 import { useLeagueOutletContext } from '../LeagueDetailLayout'
+import { AchievementsTab } from './AchievementsTab'
 import { FinanceTab } from './FinanceTab'
 import { IntegrationTab } from './IntegrationTab'
 import { OverviewTab } from './OverviewTab'
@@ -23,6 +24,11 @@ export function FinanceTabRoute() {
 export function PrizesTabRoute() {
   const { league } = useLeagueOutletContext()
   return <PrizesTab league={league} />
+}
+
+export function AchievementsTabRoute() {
+  const { league } = useLeagueOutletContext()
+  return <AchievementsTab league={league} />
 }
 
 export function IntegrationTabRoute() {

@@ -62,11 +62,17 @@ body {
 }
 
 /*
- * sonner's "success" toast defaults to green — override it to our accent
- * gold so no green ever renders, even via the richColors preset.
+ * sonner's "success" toast defaults to green via a same-or-higher-specificity
+ * built-in rule ([data-sonner-toaster][data-sonner-theme=dark] / =light) —
+ * a plain [data-sonner-toaster] override loses that fight regardless of
+ * source order, so this must match that specificity (and !important as a
+ * belt-and-braces guard, since this is a hard product requirement: no green
+ * anywhere, ever, including toasts).
  */
-[data-sonner-toaster] {
-  --success-bg: color-mix(in srgb, var(--color-accent) 15%, var(--color-surface));
-  --success-border: var(--color-accent);
-  --success-text: var(--color-accent);
+[data-sonner-toaster],
+[data-sonner-toaster][data-sonner-theme='dark'],
+[data-sonner-toaster][data-sonner-theme='light'] {
+  --success-bg: color-mix(in srgb, var(--color-accent) 15%, var(--color-surface)) !important;
+  --success-border: var(--color-accent) !important;
+  --success-text: var(--color-accent) !important;
 }

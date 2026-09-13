@@ -18,6 +18,7 @@ const TABS = [
   { to: 'participantes', label: 'Participantes' },
   { to: 'financeiro', label: 'Financeiro' },
   { to: 'premiacao', label: 'Premiação' },
+  { to: 'conquistas', label: 'Conquistas' },
   { to: 'integracao', label: 'Integração' },
 ]
 

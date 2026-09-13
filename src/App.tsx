@@ -7,6 +7,7 @@ import { LeagueDetailLayout } from '@/pages/admin/LeagueDetailLayout'
 import { LeaguesListPage } from '@/pages/admin/LeaguesListPage'
 import { RedirectToLeagueTab } from '@/pages/admin/RedirectToLeagueTab'
 import {
+  AchievementsTabRoute,
   FinanceTabRoute,
   IntegrationTabRoute,
   OverviewTabRoute,
@@ -50,6 +51,7 @@ export default function App() {
                   <Route path="participantes" element={<ParticipantsTabRoute />} />
                   <Route path="financeiro" element={<FinanceTabRoute />} />
                   <Route path="premiacao" element={<PrizesTabRoute />} />
+                  <Route path="conquistas" element={<AchievementsTabRoute />} />
                   <Route path="integracao" element={<IntegrationTabRoute />} />
                 </Route>
                 <Route path="participantes" element={<RedirectToLeagueTab tab="participantes" />} />
