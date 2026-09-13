@@ -38,18 +38,6 @@ as $$
   );
 $$;
 
-create function is_commissioner_of_any_league()
-returns boolean
-language sql
-security definer
-set search_path = public
-stable
-as $$
-  select exists (
-    select 1 from leagues where commissioner_id = auth.uid()
-  );
-$$;
-
 -- ---------------------------------------------------------------------------
 -- profiles
 -- ---------------------------------------------------------------------------
@@ -209,8 +197,12 @@ create policy "user achievements are readable by any authenticated user"
   to authenticated
   using (true);
 
+-- No "league_id is null" escape hatch here: every achievement must be tied
+-- to a league the writer commissions, otherwise any authenticated user could
+-- insert a league_id-less row and self-award (e.g. "Campeão") on their own
+-- passport.
 create policy "commissioners award achievements for their league"
   on user_achievements for all
   to authenticated
-  using (league_id is null or is_league_commissioner(league_id))
-  with check (league_id is null or is_league_commissioner(league_id));
+  using (is_league_commissioner(league_id))
+  with check (is_league_commissioner(league_id));
