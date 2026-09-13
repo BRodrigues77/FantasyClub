@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "fantasyclub-dev",
+      "runtimeExecutable": "C:\\Users\\Administrador\\OneDrive\\Documents\\GitHub\\FantasyClub\\.claude\\dev-server.cmd",
+      "runtimeArgs": [],
+      "port": 5173
+    }
+  ]
+}
